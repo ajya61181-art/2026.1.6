@@ -1,0 +1,279 @@
+{% comment %}
+  Main product shield PDP
+{% endcomment %}
+
+{{ 'lanomiz-shield-pdp.css' | asset_url | stylesheet_tag }}
+
+<section class="product-hero">
+  <div class="product-hero-container">
+
+    <!-- Gallery -->
+    <div class="product-gallery">
+      <div class="product-thumbnails">
+        {% for media in product.media limit: 4 %}
+          {% if media.media_type == 'image' %}
+            <div class="product-thumbnail {% if forloop.first %}active{% endif %}">
+              {{ media | image_url: width: 200 | image_tag: alt: media.alt | escape }}
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+
+      <div class="product-main-image">
+        <button class="zoom-btn" type="button">🔍</button>
+
+        {% if product.featured_image %}
+          {{ product.featured_image | image_url: width: 900 | image_tag: alt: product.title }}
+        {% endif %}
+
+        <p class="product-disclaimer">
+          * These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure, or prevent any disease.
+        </p>
+      </div>
+    </div>
+
+    <!-- Info -->
+    <div class="product-info">
+
+      <!-- ✅ Judge.me rating badge (click to reviews) -->
+      <div class="product-rating">
+        <a href="#reviews" class="lemme-rating">
+          <div class="jdgm-widget jdgm-preview-badge" data-id="{{ product.id }}">
+            {%- if product.metafields.jdgm.preview_badge != blank -%}
+              {{ product.metafields.jdgm.preview_badge }}
+            {%- endif -%}
+          </div>
+        </a>
+      </div>
+
+      <h1 class="product-title">{{ product.title }}</h1>
+
+      <p class="product-subtitle">
+        {% if product.metafields.custom.subtitle != blank %}
+          {{ product.metafields.custom.subtitle }}
+        {% else %}
+          Metabolic Support Complex*
+        {% endif %}
+      </p>
+
+      <!-- Purchase / Add to cart -->
+      {% form 'product', product, id: 'shieldProductForm' %}
+
+        <div class="purchase-options">
+          {% for v in product.variants %}
+            <label class="purchase-option {% if v.id == product.selected_or_first_available_variant.id %}selected{% endif %}">
+              <input
+                type="radio"
+                name="id"
+                value="{{ v.id }}"
+                {% if v.id == product.selected_or_first_available_variant.id %}checked{% endif %}
+                style="display:none;"
+              >
+
+              <div class="purchase-option-left">
+                <div class="purchase-radio"></div>
+                <div class="purchase-option-info">
+                  <h4>{{ v.title }}</h4>
+                </div>
+              </div>
+
+              <div class="purchase-option-right">
+                <span class="sale-price" data-price="{{ v.price }}">{{ v.price | money_without_trailing_zeros }}</span>
+
+                {% if v.compare_at_price > v.price %}
+                  <span class="original-price">{{ v.compare_at_price | money_without_trailing_zeros }}</span>
+                  {% assign off = v.compare_at_price | minus: v.price | times: 100 | divided_by: v.compare_at_price %}
+                  <span class="discount-badge">{{ off }}% OFF</span>
+                {% endif %}
+              </div>
+            </label>
+          {% endfor %}
+        </div>
+
+        <button class="add-to-cart-btn" type="submit" {% unless product.available %}disabled{% endunless %}>
+          <span class="btn-price">{{ product.selected_or_first_available_variant.price | money_without_trailing_zeros }}</span> – ADD TO BAG
+        </button>
+
+      {% endform %}
+
+      <script>
+        document.addEventListener('change', function(e){
+          if (e.target && e.target.name === 'id') {
+            document.querySelectorAll('#shieldProductForm .purchase-option')
+              .forEach(el => el.classList.remove('selected'));
+
+            const option = e.target.closest('.purchase-option');
+            if (!option) return;
+
+            option.classList.add('selected');
+
+            const priceEl = option.querySelector('.sale-price');
+            const btnPrice = document.querySelector('#shieldProductForm .btn-price');
+            if (priceEl && btnPrice) btnPrice.textContent = priceEl.textContent;
+          }
+        });
+      </script>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ✅ Reviews -->
+<section id="reviews" class="lemme-reviews">
+  <div class="lemme-reviews__container">
+
+    <div class="lemme-reviews__header">
+      <div class="lemme-reviews__left">
+        <h2 class="lemme-reviews__title">Reviews</h2>
+      </div>
+    </div>
+
+    <!-- ✅ Featured 5-star testimonials (static, Lemme-style) -->
+    <div class="featured-reviews">
+      <div class="featured-reviews__grid">
+        <article class="fr-card">
+          <div class="fr-top">
+            <div class="fr-stars" aria-label="5 stars">★★★★★</div>
+            <div class="fr-badge">Verified-style</div>
+          </div>
+          <h3 class="fr-title">No more sugar crash.</h3>
+          <p class="fr-text">I take it before carb-heavy meals and the difference is noticeable—steady energy, no afternoon slump.</p>
+          <div class="fr-meta">— Mia · 30-day routine</div>
+        </article>
+
+        <article class="fr-card">
+          <div class="fr-top">
+            <div class="fr-stars" aria-label="5 stars">★★★★★</div>
+            <div class="fr-badge">5.0</div>
+          </div>
+          <h3 class="fr-title">Works best with consistency.</h3>
+          <p class="fr-text">Week 2–3 was the turning point. I feel lighter after meals and cravings feel easier to manage.</p>
+          <div class="fr-meta">— Jasmine · Repeat buyer</div>
+        </article>
+
+        <article class="fr-card">
+          <div class="fr-top">
+            <div class="fr-stars" aria-label="5 stars">★★★★★</div>
+            <div class="fr-badge">Top pick</div>
+          </div>
+          <h3 class="fr-title">Gentle, no weird side effects.</h3>
+          <p class="fr-text">No jitters, no stomach issues for me. Just feels like better control around carbs.</p>
+          <div class="fr-meta">— Leah · Sensitive stomach</div>
+        </article>
+
+        <article class="fr-card">
+          <div class="fr-top">
+            <div class="fr-stars" aria-label="5 stars">★★★★★</div>
+            <div class="fr-badge">Loved</div>
+          </div>
+          <h3 class="fr-title">The “before meal” ritual is easy.</h3>
+          <p class="fr-text">Two capsules and I’m done. It fits my day and makes me feel more confident ordering what I want.</p>
+          <div class="fr-meta">— Ava · Busy schedule</div>
+        </article>
+      </div>
+
+      <p class="featured-reviews__note">
+        * Sample testimonials for design preview. Judge.me reviews below reflect verified customer submissions once collected.
+      </p>
+    </div>
+
+    <!-- ✅ Judge.me REAL widget（用户写的评论会显示在这里） -->
+    <div class="jdgm-widget jdgm-review-widget" data-id="{{ product.id }}" data-product-id="{{ product.id }}">
+      {{ product.metafields.jdgm.widget }}
+    </div>
+
+  </div>
+
+  <style>
+    /* ✅ 关键：不要隐藏 jdgm-write-rev-link（否则右边按钮没了） */
+
+    /* 让 “Be the first…” 与右侧按钮呈两列，并在右侧出现竖线 */
+    #reviews .jdgm-rev-widg__no-rev {
+      max-width: 520px;
+    }
+
+    /* Judge.me 右侧按钮容器：竖线右边、居中 */
+    #reviews .jdgm-widget-actions-wrapper {
+      display: flex !important;
+      justify-content: center !important;
+      align-items: center !important;
+      padding-left: 24px !important;
+      border-left: 1px solid rgba(0,0,0,0.12) !important; /* 竖线 */
+      min-height: 120px;
+    }
+
+    /* 把 Judge.me 默认的链接按钮做成你现在的 pill 样式 */
+    #reviews .jdgm-widget-actions-wrapper .jdgm-write-rev-link {
+      border: 2px solid #000 !important;
+      background: #fff !important;
+      color: #000 !important;
+      padding: 14px 22px !important;
+      border-radius: 9999px !important;
+      font-weight: 700 !important;
+      text-transform: uppercase !important;
+      letter-spacing: .08em !important;
+      display: inline-flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      text-decoration: none !important;
+      white-space: nowrap !important;
+    }
+    #reviews .jdgm-widget-actions-wrapper .jdgm-write-rev-link:hover {
+      background: #000 !important;
+      color: #fff !important;
+    }
+  </style>
+
+  <script>
+    (function () {
+      const root = document.getElementById('reviews');
+      if (!root) return;
+
+      // 在编辑器 iframe 里，Judge.me 弹窗常被限制/被拦截，
+      // 这里做一个“兜底”：点击后如果弹窗没开，就新开真实预览页到 #reviews
+      function bindWriteReviewFallback() {
+        const btn = root.querySelector('.jdgm-widget-actions-wrapper .jdgm-write-rev-link');
+        if (!btn) return;
+
+        // 防止重复绑定
+        if (btn.dataset.bound === '1') return;
+        btn.dataset.bound = '1';
+
+        btn.addEventListener('click', function () {
+          // 允许 Judge.me 自己的 click 逻辑先跑
+          setTimeout(function () {
+            const inIframe = window.self !== window.top;
+            if (!inIframe) return;
+
+            // 编辑器里：新开真实页面（你会看到 Judge.me 的表单/弹窗正常）
+            const url = "{{ product.url | within: collection }}";
+            const full = window.location.origin + url + "#reviews";
+            window.open(full, "_blank");
+          }, 250);
+        }, true);
+      }
+
+      // Judge.me 异步加载：轮询 + 观察者
+      let tries = 0;
+      const timer = setInterval(() => {
+        tries++;
+        bindWriteReviewFallback();
+        if (root.querySelector('.jdgm-widget-actions-wrapper .jdgm-write-rev-link') || tries > 60) {
+          clearInterval(timer);
+        }
+      }, 200);
+
+      const mo = new MutationObserver(() => bindWriteReviewFallback());
+      mo.observe(root, { childList: true, subtree: true });
+    })();
+  </script>
+</section>
+
+
+{% schema %}
+{
+  "name": "Main product - Shield",
+  "settings": []
+}
+{% endschema %}

@@ -1,0 +1,220 @@
+<style>
+  .shield-audience-section {
+    background: #ffffff;
+    padding: 80px 0;
+  }
+  
+  .shield-audience-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+  
+  .shield-audience-header {
+    text-align: center;
+    margin-bottom: 50px;
+  }
+  
+  .shield-audience-eyebrow {
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: #4CAF50;
+    margin-bottom: 15px;
+  }
+  
+  .shield-audience-title {
+    font-family: 'Georgia', serif;
+    font-size: 42px;
+    font-weight: 400;
+    font-style: italic;
+    color: #000000;
+  }
+  
+  @media (max-width: 768px) {
+    .shield-audience-title {
+      font-size: 28px;
+    }
+  }
+  
+  .shield-audience-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+  }
+  
+  @media (max-width: 768px) {
+    .shield-audience-grid {
+      grid-template-columns: 1fr;
+      max-width: 400px;
+      margin: 0 auto;
+    }
+  }
+  
+  .shield-audience-card {
+    background: linear-gradient(135deg, #E8F5E9 0%, #ffffff 100%);
+    border-radius: 24px;
+    padding: 40px 30px;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 2px solid transparent;
+  }
+  
+  .shield-audience-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 25px 50px rgba(0,0,0,0.1);
+    border-color: #D4FF00;
+  }
+  
+  .shield-audience-icon {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 25px;
+    background: #D4FF00;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 36px;
+  }
+  
+  .shield-audience-card-title {
+    font-size: 18px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #000000;
+    margin-bottom: 15px;
+  }
+  
+  .shield-audience-card-desc {
+    font-size: 14px;
+    color: #333333;
+    line-height: 1.6;
+  }
+  
+  .shield-audience-checkmark {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    background: #4CAF50;
+    color: #ffffff;
+    border-radius: 50%;
+    font-size: 14px;
+    font-weight: 700;
+    margin-top: 20px;
+  }
+</style>
+
+<section class="shield-audience-section">
+  <div class="shield-audience-container">
+    <div class="shield-audience-header">
+      <p class="shield-audience-eyebrow">{{ section.settings.eyebrow | default: "PERFECT FOR" }}</p>
+      <h2 class="shield-audience-title">{{ section.settings.title | default: "Who is Shield for?" }}</h2>
+    </div>
+    
+    <div class="shield-audience-grid">
+      <!-- Audience 1 -->
+      <div class="shield-audience-card">
+        <div class="shield-audience-icon">🍕</div>
+        <h3 class="shield-audience-card-title">{{ section.settings.audience_1_title | default: "Big Meal Lovers" }}</h3>
+        <p class="shield-audience-card-desc">{{ section.settings.audience_1_desc | default: "Enjoy your pasta, pizza, and holiday dinners without wrecking your progress." }}</p>
+        <span class="shield-audience-checkmark">✓</span>
+      </div>
+      
+      <!-- Audience 2 -->
+      <div class="shield-audience-card">
+        <div class="shield-audience-icon">🍰</div>
+        <h3 class="shield-audience-card-title">{{ section.settings.audience_2_title | default: "Sweet Tooths" }}</h3>
+        <p class="shield-audience-card-desc">{{ section.settings.audience_2_desc | default: "Have your cake and eat it too. Satisfy your sweet tooth while keeping your metabolism on your side." }}</p>
+        <span class="shield-audience-checkmark">✓</span>
+      </div>
+      
+      <!-- Audience 3 -->
+      <div class="shield-audience-card">
+        <div class="shield-audience-icon">📊</div>
+        <h3 class="shield-audience-card-title">{{ section.settings.audience_3_title | default: "The Glucose-Conscious" }}</h3>
+        <p class="shield-audience-card-desc">{{ section.settings.audience_3_desc | default: "Stop the post-lunch crash. Keep your energy steady and your focus sharp, even after carbs." }}</p>
+        <span class="shield-audience-checkmark">✓</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Shield Audience",
+  "tag": "section",
+  "class": "shield-audience-wrapper",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow Text",
+      "default": "PERFECT FOR"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section Title",
+      "default": "Who is Shield for?"
+    },
+    {
+      "type": "header",
+      "content": "Audience 1"
+    },
+    {
+      "type": "text",
+      "id": "audience_1_title",
+      "label": "Audience 1 Title",
+      "default": "Big Meal Lovers"
+    },
+    {
+      "type": "textarea",
+      "id": "audience_1_desc",
+      "label": "Audience 1 Description",
+      "default": "Enjoy your pasta, pizza, and holiday dinners without wrecking your progress."
+    },
+    {
+      "type": "header",
+      "content": "Audience 2"
+    },
+    {
+      "type": "text",
+      "id": "audience_2_title",
+      "label": "Audience 2 Title",
+      "default": "Sweet Tooths"
+    },
+    {
+      "type": "textarea",
+      "id": "audience_2_desc",
+      "label": "Audience 2 Description",
+      "default": "Have your cake and eat it too. Satisfy your sweet tooth while keeping your metabolism on your side."
+    },
+    {
+      "type": "header",
+      "content": "Audience 3"
+    },
+    {
+      "type": "text",
+      "id": "audience_3_title",
+      "label": "Audience 3 Title",
+      "default": "The Glucose-Conscious"
+    },
+    {
+      "type": "textarea",
+      "id": "audience_3_desc",
+      "label": "Audience 3 Description",
+      "default": "Stop the post-lunch crash. Keep your energy steady and your focus sharp, even after carbs."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Shield Audience"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,309 @@
+<style>
+  .shield-ingredients-section {
+    background: #f8f8f8;
+    padding: 80px 0;
+  }
+  
+  .shield-ingredients-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+  
+  .shield-ingredients-header {
+    text-align: center;
+    margin-bottom: 60px;
+  }
+  
+  .shield-ingredients-eyebrow {
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: #4CAF50;
+    margin-bottom: 15px;
+  }
+  
+  .shield-ingredients-title {
+    font-family: 'Georgia', serif;
+    font-size: 42px;
+    font-weight: 400;
+    font-style: italic;
+    color: #000000;
+    margin-bottom: 15px;
+  }
+  
+  @media (max-width: 768px) {
+    .shield-ingredients-title {
+      font-size: 28px;
+    }
+  }
+  
+  .shield-ingredients-subtitle {
+    font-size: 16px;
+    color: #666666;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  
+  .shield-ingredients-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 25px;
+  }
+  
+  @media (max-width: 992px) {
+    .shield-ingredients-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  
+  @media (max-width: 576px) {
+    .shield-ingredients-grid {
+      grid-template-columns: 1fr;
+      max-width: 350px;
+      margin: 0 auto;
+    }
+  }
+  
+  .shield-ingredient-card {
+    background: #ffffff;
+    border-radius: 20px;
+    padding: 35px 25px;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid #e0e0e0;
+  }
+  
+  .shield-ingredient-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+  }
+  
+  .shield-ingredient-icon {
+    width: 70px;
+    height: 70px;
+    margin: 0 auto 20px;
+    background: linear-gradient(135deg, #D4FF00 0%, #B8E986 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 30px;
+  }
+  
+  .shield-ingredient-name {
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #000000;
+    margin-bottom: 10px;
+  }
+  
+  .shield-ingredient-amount {
+    font-size: 24px;
+    font-weight: 700;
+    color: #4CAF50;
+    margin-bottom: 10px;
+  }
+  
+  .shield-ingredient-desc {
+    font-size: 13px;
+    color: #666666;
+    line-height: 1.5;
+  }
+  
+  .shield-ingredient-role {
+    display: inline-block;
+    margin-top: 15px;
+    background: #E8F5E9;
+    color: #2E7D32;
+    padding: 6px 14px;
+    border-radius: 50px;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  
+  /* Supplement Facts Box */
+  .shield-supplement-facts {
+    margin-top: 60px;
+    background: #ffffff;
+    border-radius: 20px;
+    padding: 40px;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+    border: 2px solid #000000;
+  }
+  
+  .shield-supplement-facts-title {
+    font-size: 24px;
+    font-weight: 700;
+    text-transform: uppercase;
+    border-bottom: 10px solid #000000;
+    padding-bottom: 5px;
+    margin-bottom: 15px;
+  }
+  
+  .shield-supplement-facts-serving {
+    font-size: 13px;
+    color: #333333;
+    margin-bottom: 15px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #e0e0e0;
+  }
+  
+  .shield-supplement-facts-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid #e0e0e0;
+    font-size: 14px;
+  }
+  
+  .shield-supplement-facts-row:last-child {
+    border-bottom: none;
+  }
+  
+  .shield-supplement-facts-row .name {
+    font-weight: 500;
+  }
+  
+  .shield-supplement-facts-row .amount {
+    font-weight: 600;
+  }
+  
+  .shield-supplement-facts-row .dv {
+    font-weight: 700;
+    color: #4CAF50;
+  }
+  
+  .shield-supplement-facts-matrix {
+    background: #f5f5f5;
+    padding: 15px;
+    border-radius: 8px;
+    margin: 15px 0;
+  }
+  
+  .shield-supplement-facts-matrix-title {
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+  
+  .shield-supplement-facts-matrix-item {
+    font-size: 13px;
+    color: #666666;
+    padding: 5px 0 5px 15px;
+  }
+</style>
+
+<section class="shield-ingredients-section">
+  <div class="shield-ingredients-container">
+    <div class="shield-ingredients-header">
+      <p class="shield-ingredients-eyebrow">{{ section.settings.eyebrow | default: "POWERED BY SCIENCE" }}</p>
+      <h2 class="shield-ingredients-title">{{ section.settings.title | default: "Carb Defense Matrix™" }}</h2>
+      <p class="shield-ingredients-subtitle">{{ section.settings.subtitle | default: "A synergistic blend of clinically-studied ingredients working together for maximum effectiveness." }}</p>
+    </div>
+    
+    <div class="shield-ingredients-grid">
+      <!-- Ingredient 1: White Kidney Bean -->
+      <div class="shield-ingredient-card">
+        <div class="shield-ingredient-icon">🛡️</div>
+        <h3 class="shield-ingredient-name">White Kidney Bean</h3>
+        <p class="shield-ingredient-amount">500mg</p>
+        <p class="shield-ingredient-desc">20:1 concentrated extract that intercepts starch absorption</p>
+        <span class="shield-ingredient-role">Intercept</span>
+      </div>
+      
+      <!-- Ingredient 2: Salacia Reticulata -->
+      <div class="shield-ingredient-card">
+        <div class="shield-ingredient-icon">⚖️</div>
+        <h3 class="shield-ingredient-name">Salacia Reticulata</h3>
+        <p class="shield-ingredient-amount">200mg</p>
+        <p class="shield-ingredient-desc">Ayurvedic herb that helps stabilize glucose levels</p>
+        <span class="shield-ingredient-role">Stabilize</span>
+      </div>
+      
+      <!-- Ingredient 3: Green Tea -->
+      <div class="shield-ingredient-card">
+        <div class="shield-ingredient-icon">🔥</div>
+        <h3 class="shield-ingredient-name">Green Tea Extract</h3>
+        <p class="shield-ingredient-amount">100mg</p>
+        <p class="shield-ingredient-desc">Standardized to 50% EGCG for gentle thermogenesis</p>
+        <span class="shield-ingredient-role">Ignite</span>
+      </div>
+      
+      <!-- Ingredient 4: Chromium -->
+      <div class="shield-ingredient-card">
+        <div class="shield-ingredient-icon">🔑</div>
+        <h3 class="shield-ingredient-name">Chromium Picolinate</h3>
+        <p class="shield-ingredient-amount">571% DV</p>
+        <p class="shield-ingredient-desc">200mcg clinical dose for insulin sensitivity support</p>
+        <span class="shield-ingredient-role">Optimize</span>
+      </div>
+    </div>
+    
+    <!-- Supplement Facts -->
+    <div class="shield-supplement-facts">
+      <h3 class="shield-supplement-facts-title">Supplement Facts</h3>
+      <div class="shield-supplement-facts-serving">
+        Serving Size: 2 Capsules<br>
+        Servings Per Container: 30
+      </div>
+      
+      <div class="shield-supplement-facts-row">
+        <span class="name">Chromium (as Chromium Picolinate)</span>
+        <span class="amount">200 mcg</span>
+        <span class="dv">571%</span>
+      </div>
+      
+      <div class="shield-supplement-facts-matrix">
+        <div class="shield-supplement-facts-matrix-title">Carb Defense Matrix™ — 800 mg †</div>
+        <div class="shield-supplement-facts-matrix-item">White Kidney Bean Extract (20:1)</div>
+        <div class="shield-supplement-facts-matrix-item">Salacia Reticulata Extract</div>
+        <div class="shield-supplement-facts-matrix-item">Green Tea Extract (Std. to 50% EGCG)</div>
+      </div>
+      
+      <p style="font-size: 11px; color: #666666; margin-top: 15px;">
+        † Daily Value not established.<br>
+        Other Ingredients: Vegetable Cellulose (Capsule), Rice Flour, Magnesium Stearate.
+      </p>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Shield Ingredients",
+  "tag": "section",
+  "class": "shield-ingredients-wrapper",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow Text",
+      "default": "POWERED BY SCIENCE"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section Title",
+      "default": "Carb Defense Matrix™"
+    },
+    {
+      "type": "textarea",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "A synergistic blend of clinically-studied ingredients working together for maximum effectiveness."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Shield Ingredients"
+    }
+  ]
+}
+{% endschema %}

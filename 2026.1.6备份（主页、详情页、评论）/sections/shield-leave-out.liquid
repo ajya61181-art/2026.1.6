@@ -1,0 +1,244 @@
+<style>
+  .shield-leave-out-section {
+    padding: 80px 0;
+    background: #ffffff;
+  }
+  
+  .shield-leave-out-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 60px;
+    align-items: center;
+  }
+  
+  @media (max-width: 768px) {
+    .shield-leave-out-container {
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+  }
+  
+  .shield-leave-out-content {
+    padding-right: 20px;
+  }
+  
+  @media (max-width: 768px) {
+    .shield-leave-out-content {
+      padding-right: 0;
+      text-align: center;
+    }
+  }
+  
+  .shield-leave-out-title {
+    font-family: 'Georgia', serif;
+    font-size: 42px;
+    font-weight: 400;
+    font-style: italic;
+    color: #000000;
+    margin-bottom: 20px;
+    line-height: 1.2;
+  }
+  
+  .shield-leave-out-title span {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .shield-leave-out-title span::after {
+    content: '';
+    position: absolute;
+    bottom: 5px;
+    left: 0;
+    right: 0;
+    height: 12px;
+    background: #D4FF00;
+    z-index: -1;
+  }
+  
+  @media (max-width: 768px) {
+    .shield-leave-out-title {
+      font-size: 32px;
+    }
+  }
+  
+  .shield-leave-out-subtitle {
+    font-size: 16px;
+    color: #333333;
+    margin-bottom: 30px;
+    line-height: 1.6;
+  }
+  
+  .shield-leave-out-cta {
+    display: inline-block;
+    background: #ffffff;
+    color: #000000;
+    border: 2px solid #000000;
+    padding: 16px 40px;
+    border-radius: 50px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-size: 13px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+  }
+  
+  .shield-leave-out-cta:hover {
+    background: #000000;
+    color: #ffffff;
+  }
+  
+  .shield-leave-out-list {
+    background: #000000;
+    border-radius: 24px;
+    padding: 50px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 25px;
+  }
+  
+  @media (max-width: 576px) {
+    .shield-leave-out-list {
+      grid-template-columns: 1fr;
+      padding: 35px 30px;
+    }
+  }
+  
+  .shield-leave-out-item {
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  
+  .shield-leave-out-item::before {
+    content: '✕';
+    color: #D4FF00;
+    font-weight: 700;
+    font-size: 16px;
+  }
+</style>
+
+<section class="shield-leave-out-section">
+  <div class="shield-leave-out-container">
+    <div class="shield-leave-out-content">
+      <h2 class="shield-leave-out-title">
+        {{ section.settings.title_part1 | default: "what we leave" }} <span>{{ section.settings.title_part2 | default: "out" }}</span>
+      </h2>
+      <p class="shield-leave-out-subtitle">{{ section.settings.subtitle | default: "Because not all vitamins are created equal" }}</p>
+      <a href="{{ section.settings.cta_link | default: '/pages/about' }}" class="shield-leave-out-cta">{{ section.settings.cta_text | default: "LEARN MORE" }}</a>
+    </div>
+    
+    <div class="shield-leave-out-list">
+      {% if section.settings.item_1 != blank %}
+        <div class="shield-leave-out-item">{{ section.settings.item_1 }}</div>
+      {% endif %}
+      {% if section.settings.item_2 != blank %}
+        <div class="shield-leave-out-item">{{ section.settings.item_2 }}</div>
+      {% endif %}
+      {% if section.settings.item_3 != blank %}
+        <div class="shield-leave-out-item">{{ section.settings.item_3 }}</div>
+      {% endif %}
+      {% if section.settings.item_4 != blank %}
+        <div class="shield-leave-out-item">{{ section.settings.item_4 }}</div>
+      {% endif %}
+      {% if section.settings.item_5 != blank %}
+        <div class="shield-leave-out-item">{{ section.settings.item_5 }}</div>
+      {% endif %}
+      {% if section.settings.item_6 != blank %}
+        <div class="shield-leave-out-item">{{ section.settings.item_6 }}</div>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Shield Leave Out",
+  "tag": "section",
+  "class": "shield-leave-out-wrapper",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title_part1",
+      "label": "Title Part 1",
+      "default": "what we leave"
+    },
+    {
+      "type": "text",
+      "id": "title_part2",
+      "label": "Title Part 2 (Highlighted)",
+      "default": "out"
+    },
+    {
+      "type": "textarea",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "Because not all vitamins are created equal"
+    },
+    {
+      "type": "text",
+      "id": "cta_text",
+      "label": "CTA Button Text",
+      "default": "LEARN MORE"
+    },
+    {
+      "type": "url",
+      "id": "cta_link",
+      "label": "CTA Button Link"
+    },
+    {
+      "type": "header",
+      "content": "Excluded Items"
+    },
+    {
+      "type": "text",
+      "id": "item_1",
+      "label": "Item 1",
+      "default": "PARABENS"
+    },
+    {
+      "type": "text",
+      "id": "item_2",
+      "label": "Item 2",
+      "default": "TALC"
+    },
+    {
+      "type": "text",
+      "id": "item_3",
+      "label": "Item 3",
+      "default": "SILICON DIOXIDE"
+    },
+    {
+      "type": "text",
+      "id": "item_4",
+      "label": "Item 4",
+      "default": "SYNTHETIC COLORS"
+    },
+    {
+      "type": "text",
+      "id": "item_5",
+      "label": "Item 5",
+      "default": "GLUTEN"
+    },
+    {
+      "type": "text",
+      "id": "item_6",
+      "label": "Item 6",
+      "default": "FD&C DYES"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Shield Leave Out"
+    }
+  ]
+}
+{% endschema %}

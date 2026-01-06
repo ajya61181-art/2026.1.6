@@ -1,0 +1,218 @@
+<style>
+  .shield-trust-section {
+    background: #E8DFF5;
+    padding: 80px 0;
+  }
+  
+  .shield-trust-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+  
+  .shield-trust-header {
+    text-align: center;
+    margin-bottom: 50px;
+  }
+  
+  .shield-trust-title {
+    font-family: 'Georgia', serif;
+    font-size: 48px;
+    font-weight: 400;
+    font-style: italic;
+    color: #000000;
+    margin-bottom: 15px;
+  }
+  
+  .shield-trust-title span {
+    color: #4CAF50;
+  }
+  
+  @media (max-width: 768px) {
+    .shield-trust-title {
+      font-size: 32px;
+    }
+  }
+  
+  .shield-trust-subtitle {
+    font-size: 18px;
+    color: #333333;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  
+  .shield-trust-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 25px;
+  }
+  
+  @media (max-width: 992px) {
+    .shield-trust-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  
+  @media (max-width: 576px) {
+    .shield-trust-grid {
+      grid-template-columns: 1fr;
+      max-width: 350px;
+      margin: 0 auto;
+    }
+  }
+  
+  .shield-trust-card {
+    background: #ffffff;
+    border-radius: 20px;
+    padding: 35px 25px;
+    text-align: center;
+    transition: transform 0.3s ease;
+  }
+  
+  .shield-trust-card:hover {
+    transform: translateY(-5px);
+  }
+  
+  .shield-trust-icon {
+    width: 50px;
+    height: 50px;
+    margin: 0 auto 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .shield-trust-icon svg {
+    width: 100%;
+    height: 100%;
+    color: #4CAF50;
+  }
+  
+  .shield-trust-icon .checkmark {
+    width: 50px;
+    height: 50px;
+    background: #E8F5E9;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .shield-trust-icon .checkmark::after {
+    content: '✓';
+    font-size: 24px;
+    color: #4CAF50;
+    font-weight: 700;
+  }
+  
+  .shield-trust-text {
+    font-size: 14px;
+    font-weight: 600;
+    color: #000000;
+    line-height: 1.4;
+  }
+  
+  .shield-trust-stars {
+    margin-top: 10px;
+    color: #FFD700;
+    font-size: 16px;
+    letter-spacing: 2px;
+  }
+</style>
+
+<section class="shield-trust-section">
+  <div class="shield-trust-container">
+    <div class="shield-trust-header">
+      <h2 class="shield-trust-title">{{ section.settings.title_part1 }} <span>{{ section.settings.title_part2 }}</span></h2>
+      <p class="shield-trust-subtitle">{{ section.settings.subtitle }}</p>
+    </div>
+    
+    <div class="shield-trust-grid">
+      <div class="shield-trust-card">
+        <div class="shield-trust-icon">
+          <div class="checkmark"></div>
+        </div>
+        <p class="shield-trust-text">{{ section.settings.badge_1 | default: "Expert formulated" }}</p>
+      </div>
+      
+      <div class="shield-trust-card">
+        <div class="shield-trust-icon">
+          <div class="checkmark"></div>
+        </div>
+        <p class="shield-trust-text">{{ section.settings.badge_2 | default: "Validated by 3rd party testing" }}</p>
+      </div>
+      
+      <div class="shield-trust-card">
+        <div class="shield-trust-icon">
+          <div class="checkmark"></div>
+        </div>
+        <p class="shield-trust-text">{{ section.settings.badge_3 | default: "Science-backed innovation" }}</p>
+      </div>
+      
+      <div class="shield-trust-card">
+        <div class="shield-trust-icon">
+          <div class="checkmark"></div>
+        </div>
+        <p class="shield-trust-text">{{ section.settings.badge_4 | default: "Thousands of 5-star testimonials" }}</p>
+        <div class="shield-trust-stars">★★★★★</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Shield Trust Badges",
+  "tag": "section",
+  "class": "shield-trust-wrapper",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title_part1",
+      "label": "Title Part 1",
+      "default": "lanomiz get"
+    },
+    {
+      "type": "text",
+      "id": "title_part2",
+      "label": "Title Part 2 (Colored)",
+      "default": "real results"
+    },
+    {
+      "type": "textarea",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "The twist? So effective you won't believe they're supplements."
+    },
+    {
+      "type": "text",
+      "id": "badge_1",
+      "label": "Badge 1 Text",
+      "default": "Expert formulated"
+    },
+    {
+      "type": "text",
+      "id": "badge_2",
+      "label": "Badge 2 Text",
+      "default": "Validated by 3rd party testing"
+    },
+    {
+      "type": "text",
+      "id": "badge_3",
+      "label": "Badge 3 Text",
+      "default": "Science-backed innovation"
+    },
+    {
+      "type": "text",
+      "id": "badge_4",
+      "label": "Badge 4 Text",
+      "default": "Thousands of 5-star testimonials"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Shield Trust Badges"
+    }
+  ]
+}
+{% endschema %}

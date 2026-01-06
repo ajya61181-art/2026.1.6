@@ -1,0 +1,110 @@
+<style>
+  .shield-marquee-section {
+    background: #D4FF00;
+    padding: 20px 0;
+    overflow: hidden;
+  }
+  
+  .shield-marquee-wrapper {
+    display: flex;
+    width: max-content;
+    animation: shield-marquee-scroll 30s linear infinite;
+  }
+  
+  .shield-marquee-wrapper:hover {
+    animation-play-state: paused;
+  }
+  
+  @keyframes shield-marquee-scroll {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+  
+  .shield-marquee-content {
+    display: flex;
+    align-items: center;
+  }
+  
+  .shield-marquee-item {
+    font-size: 22px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #000000;
+    white-space: nowrap;
+    padding: 0 30px;
+    display: flex;
+    align-items: center;
+    gap: 30px;
+  }
+  
+  .shield-marquee-item::after {
+    content: '✦';
+    color: #000000;
+    font-size: 18px;
+  }
+  
+  @media (max-width: 768px) {
+    .shield-marquee-item {
+      font-size: 16px;
+      padding: 0 20px;
+      gap: 20px;
+    }
+  }
+</style>
+
+<section class="shield-marquee-section">
+  <div class="shield-marquee-wrapper">
+    <div class="shield-marquee-content">
+      {% for i in (1..10) %}
+        <span class="shield-marquee-item">{{ section.settings.text_1 | default: "CHEAT MEAL INSURANCE" }}</span>
+        <span class="shield-marquee-item">{{ section.settings.text_2 | default: "YOUR DAILY CARB DEFENSE" }}</span>
+        <span class="shield-marquee-item">{{ section.settings.text_3 | default: "SKIP THE CRASH" }}</span>
+      {% endfor %}
+    </div>
+    <div class="shield-marquee-content">
+      {% for i in (1..10) %}
+        <span class="shield-marquee-item">{{ section.settings.text_1 | default: "CHEAT MEAL INSURANCE" }}</span>
+        <span class="shield-marquee-item">{{ section.settings.text_2 | default: "YOUR DAILY CARB DEFENSE" }}</span>
+        <span class="shield-marquee-item">{{ section.settings.text_3 | default: "SKIP THE CRASH" }}</span>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Shield Marquee",
+  "tag": "section",
+  "class": "shield-marquee-wrapper-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "text_1",
+      "label": "Marquee Text 1",
+      "default": "CHEAT MEAL INSURANCE"
+    },
+    {
+      "type": "text",
+      "id": "text_2",
+      "label": "Marquee Text 2",
+      "default": "YOUR DAILY CARB DEFENSE"
+    },
+    {
+      "type": "text",
+      "id": "text_3",
+      "label": "Marquee Text 3",
+      "default": "SKIP THE CRASH"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Shield Marquee"
+    }
+  ]
+}
+{% endschema %}

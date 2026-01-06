@@ -1,0 +1,414 @@
+<style>
+  .shield-products-section {
+    background: #ffffff;
+    padding: 80px 0;
+  }
+  
+  .shield-products-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+  
+  .shield-products-title {
+    font-family: 'Georgia', serif;
+    font-size: 48px;
+    font-weight: 400;
+    font-style: italic;
+    text-align: center;
+    margin-bottom: 50px;
+    color: #000000;
+  }
+  
+  @media (max-width: 768px) {
+    .shield-products-title {
+      font-size: 32px;
+    }
+  }
+  
+  .shield-products-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 30px;
+  }
+  
+  @media (max-width: 992px) {
+    .shield-products-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  
+  @media (max-width: 576px) {
+    .shield-products-grid {
+      grid-template-columns: 1fr;
+      max-width: 350px;
+      margin: 0 auto;
+    }
+  }
+  
+  .shield-product-card {
+    background: #ffffff;
+    border-radius: 24px;
+    padding: 25px;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid #f0f0f0;
+    position: relative;
+  }
+  
+  .shield-product-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 25px 50px rgba(0,0,0,0.12);
+  }
+  
+  .shield-product-badge {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    background: #D4FF00;
+    color: #000000;
+    padding: 6px 14px;
+    border-radius: 50px;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    z-index: 2;
+  }
+  
+  .shield-product-image {
+    margin-bottom: 20px;
+    position: relative;
+    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .shield-product-image img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    transition: transform 0.3s ease;
+  }
+  
+  .shield-product-card:hover .shield-product-image img {
+    transform: scale(1.05);
+  }
+  
+  .shield-product-name {
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 8px;
+    color: #000000;
+    line-height: 1.4;
+  }
+  
+  .shield-product-desc {
+    font-size: 13px;
+    color: #666666;
+    margin-bottom: 10px;
+    line-height: 1.4;
+  }
+  
+  .shield-product-price {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 18px;
+    color: #000000;
+  }
+  
+  .shield-product-price .compare-price {
+    text-decoration: line-through;
+    color: #999999;
+    font-size: 14px;
+    margin-left: 8px;
+  }
+  
+  .shield-quick-add {
+    display: inline-block;
+    background: #ffffff;
+    color: #000000;
+    border: 2px solid #000000;
+    padding: 14px 35px;
+    border-radius: 50px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-size: 11px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+  }
+  
+  .shield-quick-add:hover {
+    background: #000000;
+    color: #ffffff;
+  }
+  
+  /* Featured Product (Shield) - Larger Card */
+  .shield-product-card.featured {
+    grid-column: span 2;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    text-align: left;
+    padding: 40px;
+    background: linear-gradient(135deg, #E8F5E9 0%, #ffffff 100%);
+  }
+  
+  @media (max-width: 768px) {
+    .shield-product-card.featured {
+      grid-column: span 1;
+      grid-template-columns: 1fr;
+      text-align: center;
+    }
+  }
+  
+  .shield-product-card.featured .shield-product-image {
+    height: 300px;
+  }
+  
+  .shield-product-card.featured .shield-product-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  
+  .shield-product-card.featured .shield-product-name {
+    font-size: 16px;
+    margin-bottom: 12px;
+  }
+  
+  .shield-product-card.featured .shield-product-desc {
+    font-size: 14px;
+    margin-bottom: 15px;
+  }
+  
+  .shield-product-features {
+    margin-bottom: 20px;
+  }
+  
+  .shield-product-feature {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 13px;
+    color: #333333;
+    margin-bottom: 8px;
+  }
+  
+  @media (max-width: 768px) {
+    .shield-product-feature {
+      justify-content: center;
+    }
+  }
+  
+  .shield-product-feature::before {
+    content: '✓';
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    background: #D4FF00;
+    border-radius: 50%;
+    font-size: 11px;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+</style>
+
+<section class="shield-products-section">
+  <div class="shield-products-container">
+    <h2 class="shield-products-title">{{ section.settings.title }}</h2>
+    
+    <div class="shield-products-grid">
+      <!-- Featured Product: Shield -->
+      <div class="shield-product-card featured">
+        <span class="shield-product-badge">NEW</span>
+        <div class="shield-product-image">
+          {% if section.settings.featured_image != blank %}
+            <img src="{{ section.settings.featured_image | image_url: width: 600 }}" 
+                 alt="Shield - Metabolic Support Complex">
+          {% else %}
+            <img src="{{ 'shield-product-main.png' | asset_url }}" 
+                 alt="Shield - Metabolic Support Complex">
+          {% endif %}
+        </div>
+        <div class="shield-product-content">
+          <h3 class="shield-product-name">{{ section.settings.featured_name | default: "LANOMIZ SHIELD" }}</h3>
+          <p class="shield-product-desc">{{ section.settings.featured_desc | default: "Metabolic Support Complex*" }}</p>
+          
+          <div class="shield-product-features">
+            <div class="shield-product-feature">571% DV Chromium</div>
+            <div class="shield-product-feature">Carb Defense Matrix™</div>
+            <div class="shield-product-feature">60 Capsules / 30 Servings</div>
+          </div>
+          
+          <div class="shield-product-price">
+            {{ section.settings.featured_price | default: "$39" }}
+            {% if section.settings.featured_compare_price != blank %}
+              <span class="compare-price">{{ section.settings.featured_compare_price }}</span>
+            {% endif %}
+          </div>
+          
+          <a href="{{ section.settings.featured_link | default: '/products/shield' }}" class="shield-quick-add">SHOP NOW</a>
+        </div>
+      </div>
+      
+      <!-- Product 2 -->
+      {% if section.settings.product_2_name != blank %}
+      <div class="shield-product-card">
+        <div class="shield-product-image">
+          {% if section.settings.product_2_image != blank %}
+            <img src="{{ section.settings.product_2_image | image_url: width: 400 }}" 
+                 alt="{{ section.settings.product_2_name }}">
+          {% endif %}
+        </div>
+        <h3 class="shield-product-name">{{ section.settings.product_2_name }}</h3>
+        <p class="shield-product-desc">{{ section.settings.product_2_desc }}</p>
+        <div class="shield-product-price">{{ section.settings.product_2_price }}</div>
+        <a href="{{ section.settings.product_2_link }}" class="shield-quick-add">QUICK ADD</a>
+      </div>
+      {% endif %}
+      
+      <!-- Product 3 -->
+      {% if section.settings.product_3_name != blank %}
+      <div class="shield-product-card">
+        <div class="shield-product-image">
+          {% if section.settings.product_3_image != blank %}
+            <img src="{{ section.settings.product_3_image | image_url: width: 400 }}" 
+                 alt="{{ section.settings.product_3_name }}">
+          {% endif %}
+        </div>
+        <h3 class="shield-product-name">{{ section.settings.product_3_name }}</h3>
+        <p class="shield-product-desc">{{ section.settings.product_3_desc }}</p>
+        <div class="shield-product-price">{{ section.settings.product_3_price }}</div>
+        <a href="{{ section.settings.product_3_link }}" class="shield-quick-add">QUICK ADD</a>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Shield Products",
+  "tag": "section",
+  "class": "shield-products-wrapper",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section Title",
+      "default": "current faves"
+    },
+    {
+      "type": "header",
+      "content": "Featured Product (Shield)"
+    },
+    {
+      "type": "image_picker",
+      "id": "featured_image",
+      "label": "Featured Product Image"
+    },
+    {
+      "type": "text",
+      "id": "featured_name",
+      "label": "Featured Product Name",
+      "default": "LANOMIZ SHIELD"
+    },
+    {
+      "type": "text",
+      "id": "featured_desc",
+      "label": "Featured Product Description",
+      "default": "Metabolic Support Complex*"
+    },
+    {
+      "type": "text",
+      "id": "featured_price",
+      "label": "Featured Product Price",
+      "default": "$39"
+    },
+    {
+      "type": "text",
+      "id": "featured_compare_price",
+      "label": "Featured Compare Price"
+    },
+    {
+      "type": "url",
+      "id": "featured_link",
+      "label": "Featured Product Link"
+    },
+    {
+      "type": "header",
+      "content": "Product 2"
+    },
+    {
+      "type": "image_picker",
+      "id": "product_2_image",
+      "label": "Product 2 Image"
+    },
+    {
+      "type": "text",
+      "id": "product_2_name",
+      "label": "Product 2 Name",
+      "default": "APPETITE CONTROL"
+    },
+    {
+      "type": "text",
+      "id": "product_2_desc",
+      "label": "Product 2 Description",
+      "default": "14-Day Appetite Support*"
+    },
+    {
+      "type": "text",
+      "id": "product_2_price",
+      "label": "Product 2 Price",
+      "default": "$35"
+    },
+    {
+      "type": "url",
+      "id": "product_2_link",
+      "label": "Product 2 Link"
+    },
+    {
+      "type": "header",
+      "content": "Product 3"
+    },
+    {
+      "type": "image_picker",
+      "id": "product_3_image",
+      "label": "Product 3 Image"
+    },
+    {
+      "type": "text",
+      "id": "product_3_name",
+      "label": "Product 3 Name"
+    },
+    {
+      "type": "text",
+      "id": "product_3_desc",
+      "label": "Product 3 Description"
+    },
+    {
+      "type": "text",
+      "id": "product_3_price",
+      "label": "Product 3 Price"
+    },
+    {
+      "type": "url",
+      "id": "product_3_link",
+      "label": "Product 3 Link"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Shield Products"
+    }
+  ]
+}
+{% endschema %}

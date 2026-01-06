@@ -1,0 +1,254 @@
+<style>
+  .shield-media-section {
+    background: #000000;
+    padding: 35px 0;
+  }
+  
+  .shield-media-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+  
+  .shield-media-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 60px;
+    flex-wrap: wrap;
+  }
+  
+  @media (max-width: 768px) {
+    .shield-media-wrapper {
+      gap: 30px;
+    }
+  }
+  
+  .shield-media-logo {
+    color: #ffffff;
+    font-size: 24px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    opacity: 0.7;
+    transition: opacity 0.3s ease;
+    font-family: 'Georgia', serif;
+  }
+  
+  .shield-media-logo:hover {
+    opacity: 1;
+  }
+  
+  @media (max-width: 576px) {
+    .shield-media-logo {
+      font-size: 18px;
+    }
+  }
+  
+  /* Alternative: Image logos */
+  .shield-media-logo-img {
+    height: 28px;
+    filter: brightness(0) invert(1);
+    opacity: 0.7;
+    transition: opacity 0.3s ease;
+  }
+  
+  .shield-media-logo-img:hover {
+    opacity: 1;
+  }
+  
+  /* Carousel Navigation */
+  .shield-media-nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-top: 20px;
+  }
+  
+  .shield-media-nav-btn {
+    width: 30px;
+    height: 30px;
+    border: 1px solid rgba(255,255,255,0.3);
+    border-radius: 50%;
+    background: transparent;
+    color: #ffffff;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+  }
+  
+  .shield-media-nav-btn:hover {
+    background: rgba(255,255,255,0.1);
+  }
+  
+  .shield-media-dots {
+    display: flex;
+    gap: 8px;
+    margin: 0 15px;
+  }
+  
+  .shield-media-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.3);
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+  
+  .shield-media-dot.active {
+    background: #ffffff;
+  }
+</style>
+
+<section class="shield-media-section">
+  <div class="shield-media-container">
+    <div class="shield-media-wrapper">
+      {% if section.settings.logo_1 != blank %}
+        <img src="{{ section.settings.logo_1 | image_url: height: 56 }}" alt="Media Logo" class="shield-media-logo-img">
+      {% else %}
+        <span class="shield-media-logo">{{ section.settings.text_1 | default: "Forbes" }}</span>
+      {% endif %}
+      
+      {% if section.settings.logo_2 != blank %}
+        <img src="{{ section.settings.logo_2 | image_url: height: 56 }}" alt="Media Logo" class="shield-media-logo-img">
+      {% else %}
+        <span class="shield-media-logo">{{ section.settings.text_2 | default: "Vanity Fair" }}</span>
+      {% endif %}
+      
+      {% if section.settings.logo_3 != blank %}
+        <img src="{{ section.settings.logo_3 | image_url: height: 56 }}" alt="Media Logo" class="shield-media-logo-img">
+      {% else %}
+        <span class="shield-media-logo">{{ section.settings.text_3 | default: "Vogue" }}</span>
+      {% endif %}
+      
+      {% if section.settings.logo_4 != blank %}
+        <img src="{{ section.settings.logo_4 | image_url: height: 56 }}" alt="Media Logo" class="shield-media-logo-img">
+      {% elsif section.settings.text_4 != blank %}
+        <span class="shield-media-logo">{{ section.settings.text_4 }}</span>
+      {% endif %}
+      
+      {% if section.settings.logo_5 != blank %}
+        <img src="{{ section.settings.logo_5 | image_url: height: 56 }}" alt="Media Logo" class="shield-media-logo-img">
+      {% elsif section.settings.text_5 != blank %}
+        <span class="shield-media-logo">{{ section.settings.text_5 }}</span>
+      {% endif %}
+    </div>
+    
+    {% if section.settings.show_navigation %}
+    <div class="shield-media-nav">
+      <button class="shield-media-nav-btn" aria-label="Previous">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+      </button>
+      <div class="shield-media-dots">
+        <span class="shield-media-dot active"></span>
+        <span class="shield-media-dot"></span>
+        <span class="shield-media-dot"></span>
+        <span class="shield-media-dot"></span>
+        <span class="shield-media-dot"></span>
+        <span class="shield-media-dot"></span>
+      </div>
+      <button class="shield-media-nav-btn" aria-label="Next">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+      </button>
+    </div>
+    {% endif %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Shield Media Logos",
+  "tag": "section",
+  "class": "shield-media-wrapper-section",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_navigation",
+      "label": "Show Navigation",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Logo 1"
+    },
+    {
+      "type": "image_picker",
+      "id": "logo_1",
+      "label": "Logo 1 Image"
+    },
+    {
+      "type": "text",
+      "id": "text_1",
+      "label": "Logo 1 Text (if no image)",
+      "default": "Forbes"
+    },
+    {
+      "type": "header",
+      "content": "Logo 2"
+    },
+    {
+      "type": "image_picker",
+      "id": "logo_2",
+      "label": "Logo 2 Image"
+    },
+    {
+      "type": "text",
+      "id": "text_2",
+      "label": "Logo 2 Text (if no image)",
+      "default": "Vanity Fair"
+    },
+    {
+      "type": "header",
+      "content": "Logo 3"
+    },
+    {
+      "type": "image_picker",
+      "id": "logo_3",
+      "label": "Logo 3 Image"
+    },
+    {
+      "type": "text",
+      "id": "text_3",
+      "label": "Logo 3 Text (if no image)",
+      "default": "Vogue"
+    },
+    {
+      "type": "header",
+      "content": "Logo 4"
+    },
+    {
+      "type": "image_picker",
+      "id": "logo_4",
+      "label": "Logo 4 Image"
+    },
+    {
+      "type": "text",
+      "id": "text_4",
+      "label": "Logo 4 Text (if no image)"
+    },
+    {
+      "type": "header",
+      "content": "Logo 5"
+    },
+    {
+      "type": "image_picker",
+      "id": "logo_5",
+      "label": "Logo 5 Image"
+    },
+    {
+      "type": "text",
+      "id": "text_5",
+      "label": "Logo 5 Text (if no image)"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Shield Media Logos"
+    }
+  ]
+}
+{% endschema %}

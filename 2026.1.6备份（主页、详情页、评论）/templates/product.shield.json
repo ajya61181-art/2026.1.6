@@ -1,0 +1,10 @@
+{
+  "sections": {
+    "main": { "type": "main-product-shield", "settings": {} },
+    "ingredients": { "type": "shield-ingredients", "settings": {} },
+    "leave_out": { "type": "shield-leave-out", "settings": {} },
+    "products": { "type": "shield-products", "settings": {} },
+    "ritual": { "type": "shield-ritual", "settings": {} }
+  },
+  "order": ["main", "ingredients", "leave_out", "products", "ritual"]
+}

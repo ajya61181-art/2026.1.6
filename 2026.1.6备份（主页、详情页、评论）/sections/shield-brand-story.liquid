@@ -1,0 +1,233 @@
+<style>
+  .shield-brand-section {
+    background: linear-gradient(135deg, #E8DFF5 0%, #E8F5E9 50%, #E8DFF5 100%);
+    padding: 100px 0;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .shield-brand-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+  }
+  
+  @media (max-width: 992px) {
+    .shield-brand-container {
+      grid-template-columns: 1fr;
+      text-align: center;
+    }
+  }
+  
+  .shield-brand-content {
+    position: relative;
+    z-index: 2;
+  }
+  
+  .shield-brand-quote {
+    font-family: 'Georgia', serif;
+    font-size: 32px;
+    font-style: italic;
+    line-height: 1.4;
+    color: #000000;
+    margin-bottom: 30px;
+    position: relative;
+  }
+  
+  .shield-brand-quote::before {
+    content: '"';
+    font-size: 80px;
+    color: #D4FF00;
+    line-height: 0;
+    display: block;
+    margin-bottom: 30px;
+    font-family: 'Georgia', serif;
+  }
+  
+  @media (max-width: 768px) {
+    .shield-brand-quote {
+      font-size: 24px;
+    }
+    
+    .shield-brand-quote::before {
+      font-size: 60px;
+    }
+  }
+  
+  .shield-brand-author {
+    font-size: 14px;
+    color: #333333;
+    margin-bottom: 30px;
+  }
+  
+  .shield-brand-author strong {
+    display: block;
+    font-weight: 600;
+    color: #000000;
+    margin-bottom: 5px;
+  }
+  
+  .shield-brand-tagline {
+    font-size: 16px;
+    color: #333333;
+    margin-bottom: 30px;
+    max-width: 400px;
+  }
+  
+  @media (max-width: 992px) {
+    .shield-brand-tagline {
+      margin: 0 auto 30px;
+    }
+  }
+  
+  .shield-brand-cta {
+    display: inline-block;
+    background: #000000;
+    color: #ffffff;
+    border: 2px solid #000000;
+    padding: 16px 40px;
+    border-radius: 50px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-size: 13px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+  }
+  
+  .shield-brand-cta:hover {
+    background: #ffffff;
+    color: #000000;
+  }
+  
+  .shield-brand-image {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .shield-brand-image img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 24px;
+    box-shadow: 0 30px 60px rgba(0,0,0,0.15);
+  }
+  
+  /* Product Display Grid */
+  .shield-brand-products {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  
+  .shield-brand-product-item {
+    width: 120px;
+    text-align: center;
+  }
+  
+  .shield-brand-product-item img {
+    width: 100%;
+    height: auto;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+  }
+  
+  .shield-brand-product-item:hover img {
+    transform: translateY(-5px);
+  }
+</style>
+
+<section class="shield-brand-section">
+  <div class="shield-brand-container">
+    <div class="shield-brand-content">
+      <blockquote class="shield-brand-quote">
+        {{ section.settings.quote | default: "We don't sell anxiety, we sell freedom. In a world full of refined carbs and hidden sugars, we provide a modern metabolic defense system." }}
+      </blockquote>
+      
+      <div class="shield-brand-author">
+        <strong>{{ section.settings.author_name | default: "— Lanomiz Team" }}</strong>
+        {{ section.settings.author_title | default: "Founders" }}
+      </div>
+      
+      <p class="shield-brand-tagline">{{ section.settings.tagline | default: "Lanomiz introduces you to the upgrade you can feel." }}</p>
+      
+      <a href="{{ section.settings.cta_link | default: '/collections/all' }}" class="shield-brand-cta">{{ section.settings.cta_text | default: "SHOP ALL" }}</a>
+    </div>
+    
+    <div class="shield-brand-image">
+      {% if section.settings.image != blank %}
+        <img src="{{ section.settings.image | image_url: width: 800 }}" 
+             alt="Lanomiz Products">
+      {% else %}
+        <div class="shield-brand-products">
+          <div class="shield-brand-product-item">
+            <img src="{{ 'shield-product-main.png' | asset_url }}" alt="Shield">
+          </div>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Shield Brand Story",
+  "tag": "section",
+  "class": "shield-brand-wrapper",
+  "settings": [
+    {
+      "type": "textarea",
+      "id": "quote",
+      "label": "Quote Text",
+      "default": "We don't sell anxiety, we sell freedom. In a world full of refined carbs and hidden sugars, we provide a modern metabolic defense system."
+    },
+    {
+      "type": "text",
+      "id": "author_name",
+      "label": "Author Name",
+      "default": "— Lanomiz Team"
+    },
+    {
+      "type": "text",
+      "id": "author_title",
+      "label": "Author Title",
+      "default": "Founders"
+    },
+    {
+      "type": "textarea",
+      "id": "tagline",
+      "label": "Tagline",
+      "default": "Lanomiz introduces you to the upgrade you can feel."
+    },
+    {
+      "type": "text",
+      "id": "cta_text",
+      "label": "CTA Button Text",
+      "default": "SHOP ALL"
+    },
+    {
+      "type": "url",
+      "id": "cta_link",
+      "label": "CTA Button Link"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Brand Image"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Shield Brand Story"
+    }
+  ]
+}
+{% endschema %}

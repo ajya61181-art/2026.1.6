@@ -1,0 +1,493 @@
+<style>
+  .shield-footer {
+    background: #E8DFF5;
+    padding: 80px 0 40px;
+  }
+  
+  .shield-footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+  
+  .shield-footer-top {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr;
+    gap: 60px;
+    margin-bottom: 60px;
+  }
+  
+  @media (max-width: 992px) {
+    .shield-footer-top {
+      grid-template-columns: 1fr;
+      gap: 40px;
+      text-align: center;
+    }
+  }
+  
+  .shield-footer-newsletter {
+    max-width: 400px;
+  }
+  
+  @media (max-width: 992px) {
+    .shield-footer-newsletter {
+      max-width: 100%;
+      margin: 0 auto;
+    }
+  }
+  
+  .shield-footer-newsletter-title {
+    font-family: 'Georgia', serif;
+    font-size: 32px;
+    font-style: italic;
+    color: #000000;
+    margin-bottom: 20px;
+    line-height: 1.2;
+  }
+  
+  .shield-footer-newsletter-form {
+    display: flex;
+    border: 2px solid #000000;
+    border-radius: 50px;
+    overflow: hidden;
+    background: #ffffff;
+  }
+  
+  .shield-footer-newsletter-input {
+    flex: 1;
+    border: none;
+    padding: 16px 20px;
+    font-size: 14px;
+    background: transparent;
+    outline: none;
+  }
+  
+  .shield-footer-newsletter-input::placeholder {
+    color: #999999;
+  }
+  
+  .shield-footer-newsletter-btn {
+    background: #000000;
+    color: #ffffff;
+    border: none;
+    padding: 16px 25px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .shield-footer-newsletter-btn:hover {
+    background: #333333;
+  }
+  
+  .shield-footer-newsletter-btn svg {
+    width: 20px;
+    height: 20px;
+  }
+  
+  .shield-footer-social {
+    display: flex;
+    gap: 12px;
+    margin-top: 25px;
+  }
+  
+  @media (max-width: 992px) {
+    .shield-footer-social {
+      justify-content: center;
+    }
+  }
+  
+  .shield-footer-social a {
+    width: 42px;
+    height: 42px;
+    border: 1px solid #000000;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #000000;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    font-size: 18px;
+  }
+  
+  .shield-footer-social a:hover {
+    background: #000000;
+    color: #ffffff;
+  }
+  
+  .shield-footer-links {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .shield-footer-column-title {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: #000000;
+    margin-bottom: 20px;
+  }
+  
+  .shield-footer-link {
+    display: block;
+    font-size: 14px;
+    color: #000000;
+    text-decoration: none;
+    margin-bottom: 12px;
+    transition: color 0.3s ease;
+  }
+  
+  .shield-footer-link:hover {
+    color: #4CAF50;
+  }
+  
+  /* Star decoration */
+  .shield-footer-star {
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M50 0 L60 40 L100 50 L60 60 L50 100 L40 60 L0 50 L40 40 Z' fill='white'/%3E%3C/svg%3E") no-repeat center;
+    background-size: contain;
+  }
+  
+  .shield-footer-bottom {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 30px;
+    padding-top: 30px;
+    border-top: 1px solid rgba(0,0,0,0.1);
+  }
+  
+  @media (max-width: 768px) {
+    .shield-footer-bottom {
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+  }
+  
+  .shield-footer-copyright {
+    font-size: 12px;
+    color: #666666;
+  }
+  
+  .shield-footer-legal {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  
+  @media (max-width: 768px) {
+    .shield-footer-legal {
+      justify-content: center;
+    }
+  }
+  
+  .shield-footer-legal a {
+    font-size: 11px;
+    color: #666666;
+    text-decoration: underline;
+    transition: color 0.3s ease;
+  }
+  
+  .shield-footer-legal a:hover {
+    color: #000000;
+  }
+  
+  .shield-footer-disclaimer {
+    background: rgba(255,255,255,0.5);
+    border-radius: 12px;
+    padding: 20px;
+    margin-top: 30px;
+    font-size: 11px;
+    color: #666666;
+    line-height: 1.6;
+  }
+</style>
+
+<footer class="shield-footer">
+  <div class="shield-footer-container">
+    <div class="shield-footer-top">
+      <!-- Newsletter -->
+      <div class="shield-footer-newsletter">
+        <h3 class="shield-footer-newsletter-title">{{ section.settings.newsletter_title | default: "be first to get the goods" }}</h3>
+        
+        {% form 'customer', class: 'shield-footer-newsletter-form' %}
+          <input type="email" 
+                 name="contact[email]" 
+                 class="shield-footer-newsletter-input" 
+                 placeholder="{{ section.settings.newsletter_placeholder | default: 'Your email address' }}"
+                 required>
+          <button type="submit" class="shield-footer-newsletter-btn">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+            </svg>
+          </button>
+        {% endform %}
+        
+        <div class="shield-footer-social">
+          {% if section.settings.social_instagram != blank %}
+            <a href="{{ section.settings.social_instagram }}" target="_blank" aria-label="Instagram">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+            </a>
+          {% endif %}
+          {% if section.settings.social_tiktok != blank %}
+            <a href="{{ section.settings.social_tiktok }}" target="_blank" aria-label="TikTok">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/></svg>
+            </a>
+          {% endif %}
+          {% if section.settings.social_facebook != blank %}
+            <a href="{{ section.settings.social_facebook }}" target="_blank" aria-label="Facebook">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
+            </a>
+          {% endif %}
+          {% if section.settings.social_youtube != blank %}
+            <a href="{{ section.settings.social_youtube }}" target="_blank" aria-label="YouTube">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"></path><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02" fill="white"></polygon></svg>
+            </a>
+          {% endif %}
+        </div>
+      </div>
+      
+      <!-- Learn Column -->
+      <div class="shield-footer-links">
+        <h4 class="shield-footer-column-title">{{ section.settings.column_1_title | default: "LEARN" }}</h4>
+        {% if section.settings.link_1_text != blank %}
+          <a href="{{ section.settings.link_1_url }}" class="shield-footer-link">{{ section.settings.link_1_text }}</a>
+        {% endif %}
+        {% if section.settings.link_2_text != blank %}
+          <a href="{{ section.settings.link_2_url }}" class="shield-footer-link">{{ section.settings.link_2_text }}</a>
+        {% endif %}
+        {% if section.settings.link_3_text != blank %}
+          <a href="{{ section.settings.link_3_url }}" class="shield-footer-link">{{ section.settings.link_3_text }}</a>
+        {% endif %}
+        {% if section.settings.link_4_text != blank %}
+          <a href="{{ section.settings.link_4_url }}" class="shield-footer-link">{{ section.settings.link_4_text }}</a>
+        {% endif %}
+      </div>
+      
+      <!-- Get Help Column -->
+      <div class="shield-footer-links">
+        <h4 class="shield-footer-column-title">{{ section.settings.column_2_title | default: "GET HELP" }}</h4>
+        {% if section.settings.link_5_text != blank %}
+          <a href="{{ section.settings.link_5_url }}" class="shield-footer-link">{{ section.settings.link_5_text }}</a>
+        {% endif %}
+        {% if section.settings.link_6_text != blank %}
+          <a href="{{ section.settings.link_6_url }}" class="shield-footer-link">{{ section.settings.link_6_text }}</a>
+        {% endif %}
+        {% if section.settings.link_7_text != blank %}
+          <a href="{{ section.settings.link_7_url }}" class="shield-footer-link">{{ section.settings.link_7_text }}</a>
+        {% endif %}
+        {% if section.settings.link_8_text != blank %}
+          <a href="{{ section.settings.link_8_url }}" class="shield-footer-link">{{ section.settings.link_8_text }}</a>
+        {% endif %}
+      </div>
+    </div>
+    
+    <!-- FDA Disclaimer -->
+    <div class="shield-footer-disclaimer">
+      * These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure, or prevent any disease.
+    </div>
+    
+    <!-- Bottom -->
+    <div class="shield-footer-bottom">
+      <div class="shield-footer-copyright">
+        © {{ 'now' | date: '%Y' }} {{ shop.name }}. All rights reserved.
+      </div>
+      
+      <div class="shield-footer-legal">
+        <a href="{{ section.settings.privacy_url | default: '/policies/privacy-policy' }}">Privacy Policy</a>
+        <a href="{{ section.settings.terms_url | default: '/policies/terms-of-service' }}">Terms of Service</a>
+        <a href="{{ section.settings.refund_url | default: '/policies/refund-policy' }}">Refund Policy</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "Shield Footer",
+  "tag": "section",
+  "class": "shield-footer-wrapper",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Newsletter"
+    },
+    {
+      "type": "text",
+      "id": "newsletter_title",
+      "label": "Newsletter Title",
+      "default": "be first to get the goods"
+    },
+    {
+      "type": "text",
+      "id": "newsletter_placeholder",
+      "label": "Email Placeholder",
+      "default": "Your email address"
+    },
+    {
+      "type": "header",
+      "content": "Social Media"
+    },
+    {
+      "type": "url",
+      "id": "social_instagram",
+      "label": "Instagram URL"
+    },
+    {
+      "type": "url",
+      "id": "social_tiktok",
+      "label": "TikTok URL"
+    },
+    {
+      "type": "url",
+      "id": "social_facebook",
+      "label": "Facebook URL"
+    },
+    {
+      "type": "url",
+      "id": "social_youtube",
+      "label": "YouTube URL"
+    },
+    {
+      "type": "header",
+      "content": "Column 1 - Learn"
+    },
+    {
+      "type": "text",
+      "id": "column_1_title",
+      "label": "Column 1 Title",
+      "default": "LEARN"
+    },
+    {
+      "type": "text",
+      "id": "link_1_text",
+      "label": "Link 1 Text",
+      "default": "BLOG"
+    },
+    {
+      "type": "url",
+      "id": "link_1_url",
+      "label": "Link 1 URL"
+    },
+    {
+      "type": "text",
+      "id": "link_2_text",
+      "label": "Link 2 Text",
+      "default": "ABOUT US"
+    },
+    {
+      "type": "url",
+      "id": "link_2_url",
+      "label": "Link 2 URL"
+    },
+    {
+      "type": "text",
+      "id": "link_3_text",
+      "label": "Link 3 Text",
+      "default": "SUBSCRIBE"
+    },
+    {
+      "type": "url",
+      "id": "link_3_url",
+      "label": "Link 3 URL"
+    },
+    {
+      "type": "text",
+      "id": "link_4_text",
+      "label": "Link 4 Text",
+      "default": "INGREDIENTS"
+    },
+    {
+      "type": "url",
+      "id": "link_4_url",
+      "label": "Link 4 URL"
+    },
+    {
+      "type": "header",
+      "content": "Column 2 - Get Help"
+    },
+    {
+      "type": "text",
+      "id": "column_2_title",
+      "label": "Column 2 Title",
+      "default": "GET HELP"
+    },
+    {
+      "type": "text",
+      "id": "link_5_text",
+      "label": "Link 5 Text",
+      "default": "HELP/FAQ"
+    },
+    {
+      "type": "url",
+      "id": "link_5_url",
+      "label": "Link 5 URL"
+    },
+    {
+      "type": "text",
+      "id": "link_6_text",
+      "label": "Link 6 Text",
+      "default": "CONTACT US"
+    },
+    {
+      "type": "url",
+      "id": "link_6_url",
+      "label": "Link 6 URL"
+    },
+    {
+      "type": "text",
+      "id": "link_7_text",
+      "label": "Link 7 Text",
+      "default": "SHIPPING"
+    },
+    {
+      "type": "url",
+      "id": "link_7_url",
+      "label": "Link 7 URL"
+    },
+    {
+      "type": "text",
+      "id": "link_8_text",
+      "label": "Link 8 Text",
+      "default": "RETURNS"
+    },
+    {
+      "type": "url",
+      "id": "link_8_url",
+      "label": "Link 8 URL"
+    },
+    {
+      "type": "header",
+      "content": "Legal Links"
+    },
+    {
+      "type": "url",
+      "id": "privacy_url",
+      "label": "Privacy Policy URL"
+    },
+    {
+      "type": "url",
+      "id": "terms_url",
+      "label": "Terms of Service URL"
+    },
+    {
+      "type": "url",
+      "id": "refund_url",
+      "label": "Refund Policy URL"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Shield Footer"
+    }
+  ]
+}
+{% endschema %}
